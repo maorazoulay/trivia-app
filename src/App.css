@@ -1,0 +1,54 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+}
+
+
+.portal{
+  /* border: 3px solid red; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 12em;
+}
+
+.portal h1{
+  font-size: 4em;
+}
+
+.btn{
+  background: #4D5B9E;
+  color: white;
+  padding: 1em 1.5em;
+  /* width: 8em */
+}
+
+.q-text{
+  color: #293264;
+  font-size: 3em;
+}
+
+.question {
+  border-bottom: 1px solid #DBDEF0;
+  padding-bottom: 2em;
+}
+
+input[type="radio"]{
+  appearance: none;
+}
+
+.radio{
+  cursor: pointer;
+  border: 1px solid #4D5B9E;
+  border-radius: 0.5em;
+  margin-right: 0.5em;
+  color: #4D5B9E;
+  font-weight: bold;
+  font-size: 1.2em;
+  padding: 0.5em 1em;
+  text-align: center;
+}
