@@ -1,48 +1,25 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
+import Answer from './Answer'
 
 export default function Question(props){
+    const { question, handleChange } = props
+
+    const answerElements = question.answers.map(answer =>{
+        return <Answer 
+                key={answer.id}
+                answerData={answer}
+                handleChange={handleChange}
+                questionId={question.id}
+            />
+    })
+
     return (
-        <>
-            <h1 className='q-text'>Question #</h1>
-            <div className='question'>
-                <label className='radio'>
-                    <input 
-                    type='radio'
-                    id='answer1'
-                    name='answer'
-                    value='answer1'
-                    onChange={props.handleChange}/>
-                    answer1 
-                </label>
-                <label className='radio'>
-                    <input 
-                    type='radio'
-                    id='answer2'
-                    name='answer'
-                    value='answer2'
-                    onChange={props.handleChange}/>
-                    answer2
-                </label>
-                <label className='radio'>
-                    <input 
-                    type='radio'
-                    id='answer3'
-                    name='answer'
-                    value='answer3'
-                    onChange={props.handleChange}/>
-                    answer3
-                </label>
-                <label className='radio'>
-                    <input 
-                    type='radio'
-                    id='answer4'
-                    name='answer'
-                    value='answer4'
-                    onChange={props.handleChange}/>
-                    answer4
-                </label>
+        <div className='question-ctn'>
+            <h1 className='q-text'>{question.title}</h1>
+            <div className='answers-ctn'>
+               {answerElements}
             </div>
-            <br/>
-        </>
+            <br className='border'/>
+        </div>
     )
 }

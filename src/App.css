@@ -3,17 +3,24 @@
 }
 
 body {
-  display: flex;
-  justify-content: center;
+  margin: 0;
 }
 
+main{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 100vh;
+}
 
 .portal{
-  /* border: 3px solid red; */
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-bottom: 12em;
+  justify-content: center;
+  width: 20em;
+  height: 18em;
 }
 
 .portal h1{
@@ -24,15 +31,39 @@ body {
   background: #4D5B9E;
   color: white;
   padding: 1em 1.5em;
-  /* width: 8em */
+  border-radius: 7px;
+  width: 20em;
+}
+
+.center{
+  text-align: center;
+}
+
+.trivia-page{
+  /* border: 3px solid red; */
+  width: 100vw;
+  height: 100vh;
+}
+
+.trivia-content{
+  /* border: 3px solid purple; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.question-ctn{
+  margin-top: 0;
+  margin-bottom: 0;
 }
 
 .q-text{
   color: #293264;
-  font-size: 3em;
+  font-size: 2em;
+  margin-top: 0;
 }
 
-.question {
+.answers-ctn {
   border-bottom: 1px solid #DBDEF0;
   padding-bottom: 2em;
 }
@@ -45,10 +76,35 @@ input[type="radio"]{
   cursor: pointer;
   border: 1px solid #4D5B9E;
   border-radius: 0.5em;
-  margin-right: 0.5em;
+  margin-right: 1.5em;
   color: #4D5B9E;
   font-weight: bold;
   font-size: 1.2em;
-  padding: 0.5em 1em;
+  padding: 0.3em 1em;
   text-align: center;
+}
+
+.green{
+  background-color: #94D7A2;
+}
+
+.blue{
+  background-color: #D6DBF5;
+}
+
+.red{
+  background-color: #F8BCBC;
+}
+
+.opaque{
+  opacity: 50%;
+}
+
+.bigger-font{
+  font-size: 1.2em;
+}
+
+.score{
+  font-size: 1.5em;
+  color: #293264;
 }
