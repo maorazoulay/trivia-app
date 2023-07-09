@@ -4,7 +4,7 @@ export default function Answer(props){
     const answer = props.answerData
 
     return (
-        <label className={`radio ${answer.backgroundClass}`}>
+        <label className={`radio unselectable ${answer.backgroundClass}`}>
             <input 
                 type='radio'
                 id={answer.id}
@@ -13,7 +13,7 @@ export default function Answer(props){
                 onChange={(event) => props.handleChange(event, answer, props.questionId)}
                 checked={answer.isChecked}
             />
-                {answer.text} 
+            {answer.text} 
         </label>
     )
 }

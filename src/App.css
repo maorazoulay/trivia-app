@@ -43,6 +43,7 @@ main{
   /* border: 3px solid red; */
   width: 100vw;
   height: 100vh;
+  padding-top: 2em;
 }
 
 .trivia-content{
@@ -107,4 +108,9 @@ input[type="radio"]{
 .score{
   font-size: 1.5em;
   color: #293264;
+}
+
+.unselectable{
+  -webkit-user-select: none; /* Safari */
+  user-select: none;
 }
