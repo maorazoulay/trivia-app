@@ -12,6 +12,7 @@ export default function Answer(props){
                 value={answer.text}
                 onChange={(event) => props.handleChange(event, answer, props.questionId)}
                 checked={answer.isChecked}
+                disabled={answer.disabled}
             />
             {answer.text} 
         </label>

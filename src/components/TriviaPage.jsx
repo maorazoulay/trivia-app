@@ -14,15 +14,38 @@ export default function TriviaPage(){
     const [questions, setQuestions] = useState([])
     const [allQuestionsAnswered, setAllQuestionsAnswered] = useState(false)
 
+    // Fetch new questions from API when user answers all questions
     useEffect(() => {
         fetchNewQuestions()
     }, [triviaFinished])
 
+    // This hook will help deiable/enable the submit button
     useEffect(() => {
         const allQuestionsAnswered = 
             questions.every(question => Object.keys(question.markedAnswer).length > 0)
         setAllQuestionsAnswered(allQuestionsAnswered)
     }, [questions])
+
+    // This hook will disable the radio buttons after submission
+    useEffect(() =>{
+        if (showResults) {
+            setQuestions(prevQuestions =>{
+                return prevQuestions.map(question => {
+                    const newAnswers = 
+                        question.answers.map(answer => {
+                            return {
+                                ...answer,
+                                disabled: true
+                            }
+                        })
+                    return {
+                        ...question,
+                        answers: newAnswers
+                    }
+                })
+            })
+        }
+    }, [showResults])
 
     function handleChange(event, answerData, questionId){
         event.preventDefault()
@@ -49,7 +72,6 @@ export default function TriviaPage(){
 
     function handleSubmit(event){
         event.preventDefault()
-        console.log(event.target)
         setQuestions(prevQuestions =>{
             return prevQuestions.map(prevQuestion => {
                 const correctAnswerId = prevQuestion.correctAnswer.id
@@ -98,7 +120,9 @@ export default function TriviaPage(){
                     title: decode(result.question),
                     answers: answers,
                     correctAnswer: correctAnswer,
-                    markedAnswer: {}
+                    markedAnswer: {},
+                    isChecked: false,
+                    disabled: false
                 })
             }
             setQuestions(newQuestions)
