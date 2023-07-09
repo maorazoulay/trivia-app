@@ -19,9 +19,9 @@ export default function TriviaPage(){
     }, [triviaFinished])
 
     useEffect(() => {
-        if(questions.every(question => Object.keys(question.markedAnswer) > 0)){
-            setAllQuestionsAnswered(true)
-        }
+        const allQuestionsAnswered = 
+            questions.every(question => Object.keys(question.markedAnswer).length > 0)
+        setAllQuestionsAnswered(allQuestionsAnswered)
     }, [questions])
 
     function handleChange(event, answerData, questionId){
@@ -117,7 +117,8 @@ export default function TriviaPage(){
             <form>
                 {questionElements}
                 <div className='center'>
-                    {!showResults && <button className='btn bigger-font' 
+                    {!showResults && <button 
+                    className={`btn bigger-font ${!allQuestionsAnswered ? 'opaque' : ''}`} 
                         disabled={!allQuestionsAnswered} 
                         onClick={handleSubmit}>Check Answers</button>}
                     {showResults && <button className='btn bigger-font' 
