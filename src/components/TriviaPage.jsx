@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import Question from './Question'
 import { nanoid } from 'nanoid'
 import {decode} from 'html-entities';
-
+import { getNewAnswers, getBackgroundClass, getFormattedAnswers} from '../utils'
 
 const questionCount = 5
 const apiUrl = `https://opentdb.com/api.php?amount=${questionCount}`
@@ -69,14 +69,18 @@ const dummyQuestions = [
 export default function TriviaPage(){
     const [triviaFinished, setTriviaFinished] = useState(false)
     const [showResults, setShowResults] = useState(false)
-    const [questions, setQuestions] = useState(dummyQuestions)
+    const [questions, setQuestions] = useState([])
+    const [allQuestionsAnswered, setAllQuestionsAnswered] = useState(false)
 
-    // console.log(decode('&lt;Hello&gt;'));
-    // fetchNewQuestions()
-    
     useEffect(() => {
         fetchNewQuestions()
     }, [triviaFinished])
+
+    // useEffect(() => {
+    //     if(questions.every(question => Object.keys(question.markedAnswer) > 0)){
+    //         setAllQuestionsAnswered(true)
+    //     }
+    // }, [questions])
 
     function handleChange(event, answerData, questionId){
         event.preventDefault()
@@ -98,16 +102,6 @@ export default function TriviaPage(){
                     markedAnswer: newMarkedAnswer
                 }
             })
-        })
-    }
-
-    function getNewAnswers(oldAnswers, answerData){
-        return oldAnswers.map(answer => {
-            return {
-                ...answer,
-                backgroundClass: answerData.id === answer.id ?
-                "blue" : ""
-            } 
         })
     }
 
@@ -144,16 +138,6 @@ export default function TriviaPage(){
         }
     }
 
-    function getBackgroundClass(correctAnswerId, markedAnswerId, prevAnswer) {
-        if(prevAnswer.id === correctAnswerId){
-            return "green"
-        } else if (prevAnswer.id === markedAnswerId && prevAnswer.id !== correctAnswerId){
-            return "red opaque"
-        } else{
-            return "opaque"
-        }
-    }
-
     function restartTrivia(){
         setTriviaFinished(true)
         correctAnswerCount = 0
@@ -175,29 +159,9 @@ export default function TriviaPage(){
                     markedAnswer: {}
                 })
             }
+            console.log(newQuestions)
             setQuestions(newQuestions)
         })
-    }
-
-    function getFormattedAnswers(rawAnswers, rawCorrectAnswer){
-        let answers = rawAnswers.map(rawAnswer => {
-            return convertToAnswerObject(rawAnswer) 
-        })
-        const correctAnswer = convertToAnswerObject(rawCorrectAnswer)
-        pushToRandomIndex(answers, correctAnswer)
-        return {answers, correctAnswer}
-    }
-    
-    function convertToAnswerObject(rawAnswer) {
-        const foramttedText = decode(rawAnswer)
-        return {
-            id: nanoid(), text: foramttedText, backgroundClass: "", isChecked: false
-        }
-
-    }
-
-    function pushToRandomIndex(array, item){
-        array.splice((array.length+1) * Math.random() | 0, 0, item)
     }
 
     const questionElements = questions.map(data => {
@@ -213,6 +177,7 @@ export default function TriviaPage(){
                 {questionElements}
                 <div className='center'>
                     {!showResults && <button className='btn bigger-font' 
+                        // disabled={!allQuestionsAnswered} 
                         onClick={handleSubmit}>Check Answers</button>}
                     {showResults && <button className='btn bigger-font' 
                         onClick={restartTrivia}>Play Again</button>}
