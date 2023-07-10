@@ -114,8 +114,9 @@ input[type="radio"]{
   background-color: #F8BCBC;
 }
 
-.opaque{
+button:disabled{
   opacity: 50%;
+  cursor: not-allowed;
 }
 
 .bigger-font{

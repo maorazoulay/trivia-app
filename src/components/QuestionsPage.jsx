@@ -7,14 +7,16 @@ export default function QuestionsPage({data}) {
                 {data.questionElements}
                 <div className='center'>
                     {!data.showResults && <button 
-                    className={`btn bigger-font ${!data.isEnableSubmit ? 'opaque' : ''}`} 
+                    className={'btn bigger-font'} 
                         disabled={!data.isEnableSubmit} 
                         type='submit'
                         >Check Answers</button>}
                     {data.showResults && <button className='btn bigger-font' 
-                        type='button' onClick={data.restartTrivia}>Play Again</button>}
+                        type='button' onClick={data.restartTrivia}>
+                            Play Again</button>}
                     {data.showResults && <h3 className='score'>
-                        You scored {data.correctAnswerCount} of {data.questionCount}</h3>}
+                        You scored {data.correctAnswerCount} of 
+                        {data.questionCount}</h3>}
                 </div>
             </form>
         </div>
