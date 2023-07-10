@@ -14,9 +14,10 @@ export default function QuestionsPage({data}) {
                     {data.showResults && <button className='btn bigger-font' 
                         type='button' onClick={data.restartTrivia}>
                             Play Again</button>}
-                    {data.showResults && <h3 className='score'>
-                        You scored {data.correctAnswerCount} of 
-                        {data.questionCount}</h3>}
+                    {data.showResults && 
+                    <h3 className='score'> 
+                    {`You scored ${data.correctAnswerCount} of 
+                        ${data.questionCount}`}</h3>}
                 </div>
             </form>
         </div>
