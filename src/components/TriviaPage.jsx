@@ -16,10 +16,15 @@ export default function TriviaPage(){
 
     // Fetch new questions from API when user answers all questions
     useEffect(() => {
+        console.log("from useEffect")
         fetchNewQuestions()
+        return () => {
+            console.log("from cleanup");
+            setTriviaFinished(false)
+        }
     }, [triviaFinished])
 
-    // This hook will help deiable/enable the submit button
+    // This hook will help disable/enable the submit button
     useEffect(() => {
         const allQuestionsAnswered = 
             questions.every(question => Object.keys(question.markedAnswer).length > 0)
@@ -103,8 +108,9 @@ export default function TriviaPage(){
     }
 
     function restartTrivia(){
-        setTriviaFinished(true)
         correctAnswerCount = 0
+        setShowResults(false)
+        setTriviaFinished(true)
     }
 
     function fetchNewQuestions(){
@@ -138,15 +144,17 @@ export default function TriviaPage(){
 
     return (
         <div className='trivia-content'>
-            <form>
+            <form onSubmit={handleSubmit}>
                 {questionElements}
                 <div className='center'>
                     {!showResults && <button 
                     className={`btn bigger-font ${!allQuestionsAnswered ? 'opaque' : ''}`} 
                         disabled={!allQuestionsAnswered} 
-                        onClick={handleSubmit}>Check Answers</button>}
+                        // onClick={handleSubmit}
+                        type='submit'
+                        >Check Answers</button>}
                     {showResults && <button className='btn bigger-font' 
-                        onClick={restartTrivia}>Play Again</button>}
+                        type='button' onClick={restartTrivia}>Play Again</button>}
                     {showResults && <h3 className='score'>
                         You scored {correctAnswerCount} of {questionCount}</h3>}
                 </div>
