@@ -7,7 +7,7 @@ import { getNewAnswers, getBackgroundClass, getFormattedAnswers} from '../utils'
 const questionCount = 5
 const apiUrl = `https://opentdb.com/api.php?amount=${questionCount}`
 
-export default function TriviaPage(){
+export default function Trivia({ toggleLoadingPage }){
     const [questions, setQuestions] = useState([])
     const [showResults, setShowResults] = useState(false)
     const [correctAnswerCount, setCorrectAnswerCount] = useState(0)
@@ -17,6 +17,7 @@ export default function TriviaPage(){
     // Fetch new questions from API when user answers all questions
     useEffect(() => {
         fetchNewQuestions()
+        toggleLoadingPage(false)
         return () => {
             setTriviaFinished(false)
         }
@@ -111,6 +112,7 @@ export default function TriviaPage(){
         setCorrectAnswerCount(0)
         setShowResults(false)
         setTriviaFinished(true)
+        toggleLoadingPage(true)
     }
 
     function fetchNewQuestions(){
