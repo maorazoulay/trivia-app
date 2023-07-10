@@ -4,7 +4,7 @@ import Portal from './components/Portal'
 import TriviaPage from './components/TriviaPage'
 
 function App() {
-  const [started, setStarted] = useState(true)
+  const [started, setStarted] = useState(false)
 
   function start() {
     setStarted(true)
@@ -13,9 +13,10 @@ function App() {
   return (
     <div>
       {!started && <Portal start={start}/>}
+      {started && 
       <div className='trivia-page'>
-        {started && <TriviaPage/>}
-      </div>
+        <TriviaPage/>
+      </div>}
     </div>
   )
 }
