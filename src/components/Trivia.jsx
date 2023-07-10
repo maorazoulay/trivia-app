@@ -21,7 +21,6 @@ export default function Trivia(){
 
     useEffect(() => {
         if(showLoading){
-            console.log("fetching...");
             fetchNewQuestions()
             toggleLoadingPage(false)
         }
