@@ -2,6 +2,8 @@ import React, {useState, useEffect} from 'react';
 import Question from './Question'
 import Portal from './Portal'
 import LoadingPage from './LoadingPage'
+import QuestionsPage from './QuestionsPage'
+
 import { nanoid } from 'nanoid'
 import {decode} from 'html-entities';
 import { getNewAnswers, getBackgroundClass, getFormattedAnswers} from '../utils'
@@ -152,28 +154,21 @@ export default function Trivia(){
             handleChange={handleChange}/>
     })
 
+    const questionProps = {
+        handleSubmit,
+        questionElements,
+        showResults,
+        isEnableSubmit,
+        restartTrivia,
+        questionCount,
+        correctAnswerCount
+    }
+
     return (
         <>
             {!started && <Portal start={start}/>}
             {started && showLoading && <LoadingPage />}
-            {started && !showLoading &&
-                <div className='trivia-content'>
-                    <form onSubmit={handleSubmit}>
-                        {questionElements}
-                        <div className='center'>
-                            {!showResults && <button 
-                            className={`btn bigger-font ${!isEnableSubmit ? 'opaque' : ''}`} 
-                                disabled={!isEnableSubmit} 
-                                type='submit'
-                                >Check Answers</button>}
-                            {showResults && <button className='btn bigger-font' 
-                                type='button' onClick={restartTrivia}>Play Again</button>}
-                            {showResults && <h3 className='score'>
-                                You scored {correctAnswerCount} of {questionCount}</h3>}
-                        </div>
-                    </form>
-                </div>
-            }
+            {started && !showLoading && <QuestionsPage data={questionProps}/>}
         </>
     )
 }
