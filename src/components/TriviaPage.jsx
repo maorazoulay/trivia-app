@@ -6,12 +6,12 @@ import { getNewAnswers, getBackgroundClass, getFormattedAnswers} from '../utils'
 
 const questionCount = 5
 const apiUrl = `https://opentdb.com/api.php?amount=${questionCount}`
-let correctAnswerCount = 0
 
 export default function TriviaPage(){
-    const [triviaFinished, setTriviaFinished] = useState(false)
-    const [showResults, setShowResults] = useState(false)
     const [questions, setQuestions] = useState([])
+    const [showResults, setShowResults] = useState(false)
+    const [correctAnswerCount, setCorrectAnswerCount] = useState(0)
+    const [triviaFinished, setTriviaFinished] = useState(false)
     const [allQuestionsAnswered, setAllQuestionsAnswered] = useState(false)
 
     // Fetch new questions from API when user answers all questions
@@ -98,15 +98,17 @@ export default function TriviaPage(){
     }
 
     function updateCorrectAnswerCount(){
+        let tempAnswerCount = 0
         for(let question of questions){
             if(question.markedAnswer.id == question.correctAnswer.id){
-                correctAnswerCount++
+                tempAnswerCount++
             }
         }
+        setCorrectAnswerCount(tempAnswerCount)
     }
 
     function restartTrivia(){
-        correctAnswerCount = 0
+        setCorrectAnswerCount(0)
         setShowResults(false)
         setTriviaFinished(true)
     }
