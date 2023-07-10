@@ -11,10 +11,10 @@ function App() {
   }
 
   return (
-    <div>
+    <>
       {!started && <Portal start={start}/>}
-        {started && <TriviaPage/>}
-    </div>
+      {started && <TriviaPage/>}
+    </>
   )
 }
 
