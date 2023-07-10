@@ -17,7 +17,8 @@
 
 
 ## Reveal the answers after you test your knowledge  
-
+<br>
+<br>
 
 ![alt text](https://github.com/maorazoulay/trivia-app/blob/main/src/assets/screenshot_trivia.png)
 
