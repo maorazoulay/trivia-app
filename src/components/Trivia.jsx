@@ -1,5 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import Question from './Question'
+import Portal from './Portal'
+import LoadingPage from './LoadingPage'
 import { nanoid } from 'nanoid'
 import {decode} from 'html-entities';
 import { getNewAnswers, getBackgroundClass, getFormattedAnswers} from '../utils'
@@ -7,30 +9,28 @@ import { getNewAnswers, getBackgroundClass, getFormattedAnswers} from '../utils'
 const questionCount = 5
 const apiUrl = `https://opentdb.com/api.php?amount=${questionCount}`
 
-export default function Trivia({ toggleLoadingPage }){
+export default function Trivia(){
+    const [started, setStarted] = useState(false)
+    const [showLoading, setShowLoadingPage] = useState(false)
     const [questions, setQuestions] = useState([])
     const [showResults, setShowResults] = useState(false)
     const [correctAnswerCount, setCorrectAnswerCount] = useState(0)
-    const [triviaFinished, setTriviaFinished] = useState(false)
     const [isEnableSubmit, setIsEnableSubmit] = useState(false)
 
-    // Fetch new questions from API when user answers all questions
     useEffect(() => {
-        fetchNewQuestions()
-        toggleLoadingPage(false)
-        return () => {
-            setTriviaFinished(false)
+        if(showLoading){
+            console.log("fetching...");
+            fetchNewQuestions()
+            toggleLoadingPage(false)
         }
-    }, [triviaFinished])
+    })
 
-    // This hook will help disable/enable the submit button
     useEffect(() => {
         const allQuestionsAnswered = 
             questions.every(question => Object.keys(question.markedAnswer).length > 0)
         setIsEnableSubmit(allQuestionsAnswered)
     }, [questions])
 
-    // This hook will disable the radio buttons after submission
     useEffect(() =>{
         if (showResults) {
             setQuestions(prevQuestions =>{
@@ -108,13 +108,6 @@ export default function Trivia({ toggleLoadingPage }){
         setCorrectAnswerCount(tempAnswerCount)
     }
 
-    function restartTrivia(){
-        setCorrectAnswerCount(0)
-        setShowResults(false)
-        setTriviaFinished(true)
-        toggleLoadingPage(true)
-    }
-
     function fetchNewQuestions(){
         fetch(apiUrl)
         .then(res => res.json())
@@ -137,6 +130,21 @@ export default function Trivia({ toggleLoadingPage }){
         })
     }
 
+    function start() {
+        setStarted(true)
+        toggleLoadingPage(true)
+    }
+    
+    function toggleLoadingPage(shouldLoad){
+        setShowLoadingPage(shouldLoad)
+    }
+    
+    function restartTrivia(){
+        setCorrectAnswerCount(0)
+        setShowResults(false)
+        toggleLoadingPage(true)
+    }
+
     const questionElements = questions.map(data => {
         return <Question 
             key={data.id} 
@@ -145,21 +153,27 @@ export default function Trivia({ toggleLoadingPage }){
     })
 
     return (
-        <div className='trivia-content'>
-            <form onSubmit={handleSubmit}>
-                {questionElements}
-                <div className='center'>
-                    {!showResults && <button 
-                    className={`btn bigger-font ${!isEnableSubmit ? 'opaque' : ''}`} 
-                        disabled={!isEnableSubmit} 
-                        type='submit'
-                        >Check Answers</button>}
-                    {showResults && <button className='btn bigger-font' 
-                        type='button' onClick={restartTrivia}>Play Again</button>}
-                    {showResults && <h3 className='score'>
-                        You scored {correctAnswerCount} of {questionCount}</h3>}
+        <>
+            {!started && <Portal start={start}/>}
+            {started && showLoading && <LoadingPage />}
+            {started && !showLoading &&
+                <div className='trivia-content'>
+                    <form onSubmit={handleSubmit}>
+                        {questionElements}
+                        <div className='center'>
+                            {!showResults && <button 
+                            className={`btn bigger-font ${!isEnableSubmit ? 'opaque' : ''}`} 
+                                disabled={!isEnableSubmit} 
+                                type='submit'
+                                >Check Answers</button>}
+                            {showResults && <button className='btn bigger-font' 
+                                type='button' onClick={restartTrivia}>Play Again</button>}
+                            {showResults && <h3 className='score'>
+                                You scored {correctAnswerCount} of {questionCount}</h3>}
+                        </div>
+                    </form>
                 </div>
-            </form>
-        </div>
+            }
+        </>
     )
 }
