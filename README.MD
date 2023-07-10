@@ -16,7 +16,7 @@
 ![alt text](https://github.com/maorazoulay/trivia-app/blob/main/src/assets/screenshot_portal.png)
 
 
-## Reveal the answers after you test your knowledge  
+# Reveal the answers after you test your knowledge:
 <br>
 <br>
 
