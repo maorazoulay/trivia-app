@@ -150,7 +150,6 @@ export default function TriviaPage(){
                     {!showResults && <button 
                     className={`btn bigger-font ${!isEnableSubmit ? 'opaque' : ''}`} 
                         disabled={!isEnableSubmit} 
-                        // onClick={handleSubmit}
                         type='submit'
                         >Check Answers</button>}
                     {showResults && <button className='btn bigger-font' 
