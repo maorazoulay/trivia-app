@@ -39,10 +39,17 @@ main{
   text-align: center;
 }
 
-.trivia-page{
+.trivia-parent{
   width: 100vw;
   height: 100vh;
-  padding-top: 2em;
+  display: flex;
+  justify-content: center;
+}
+
+.trivia-page{
+  width: 95vw;
+  height: 95vh;
+  padding-top: 3em;
 }
 
 .trivia-content{
