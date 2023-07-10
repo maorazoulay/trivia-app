@@ -11,13 +11,12 @@
 
 <p>> <b>Test yourself with trivia questions from the Open Trivia database</b></p>
 
-### 🏠 [Homepage](https://trivia-quizzical-react-app.netlify.app/)
+## 🏠 [Homepage](https://trivia-quizzical-react-app.netlify.app/)
 
 ![alt text](https://github.com/maorazoulay/trivia-app/blob/main/src/assets/screenshot_portal.png)
 
 
-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
+## Reveal the answers after you test your knowledge  
 
 
 ![alt text](https://github.com/maorazoulay/trivia-app/blob/main/src/assets/screenshot_trivia.png)
