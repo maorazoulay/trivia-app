@@ -11,7 +11,9 @@
 
 <p>> <b>Test yourself with trivia questions from the Open Trivia database</b></p>
 
-### 🏠 [Homepage]()
+### 🏠 [Homepage](https://trivia-quizzical-react-app.netlify.app/)
+
+![alt text](https://github.com/maorazoulay/trivia-app/blob/main/src/assets/screenshot_portal.png)
 
 ## Install
 
