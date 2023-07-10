@@ -12,7 +12,7 @@ export default function TriviaPage(){
     const [showResults, setShowResults] = useState(false)
     const [correctAnswerCount, setCorrectAnswerCount] = useState(0)
     const [triviaFinished, setTriviaFinished] = useState(false)
-    const [allQuestionsAnswered, setAllQuestionsAnswered] = useState(false)
+    const [isEnableSubmit, setIsEnableSubmit] = useState(false)
 
     // Fetch new questions from API when user answers all questions
     useEffect(() => {
@@ -26,7 +26,7 @@ export default function TriviaPage(){
     useEffect(() => {
         const allQuestionsAnswered = 
             questions.every(question => Object.keys(question.markedAnswer).length > 0)
-        setAllQuestionsAnswered(allQuestionsAnswered)
+        setIsEnableSubmit(allQuestionsAnswered)
     }, [questions])
 
     // This hook will disable the radio buttons after submission
@@ -148,8 +148,8 @@ export default function TriviaPage(){
                 {questionElements}
                 <div className='center'>
                     {!showResults && <button 
-                    className={`btn bigger-font ${!allQuestionsAnswered ? 'opaque' : ''}`} 
-                        disabled={!allQuestionsAnswered} 
+                    className={`btn bigger-font ${!isEnableSubmit ? 'opaque' : ''}`} 
+                        disabled={!isEnableSubmit} 
                         // onClick={handleSubmit}
                         type='submit'
                         >Check Answers</button>}
