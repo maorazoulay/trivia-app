@@ -16,10 +16,8 @@ export default function TriviaPage(){
 
     // Fetch new questions from API when user answers all questions
     useEffect(() => {
-        console.log("from useEffect")
         fetchNewQuestions()
         return () => {
-            console.log("from cleanup");
             setTriviaFinished(false)
         }
     }, [triviaFinished])
