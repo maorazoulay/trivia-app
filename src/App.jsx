@@ -13,12 +13,7 @@ function App() {
   return (
     <div>
       {!started && <Portal start={start}/>}
-      <div className='trivia-parent'>
-        {started && 
-        <div className='trivia-page'>
-          <TriviaPage/>
-        </div>}
-      </div>
+        {started && <TriviaPage/>}
     </div>
   )
 }
