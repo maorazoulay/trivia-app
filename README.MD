@@ -16,6 +16,10 @@
 ![alt text](https://github.com/maorazoulay/trivia-app/blob/main/src/assets/screenshot_portal.png)
 
 
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
 ![alt text](https://github.com/maorazoulay/trivia-app/blob/main/src/assets/screenshot_trivia.png)
 
 
