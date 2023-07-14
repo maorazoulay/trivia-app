@@ -22,7 +22,6 @@ export default function Trivia(){
     useEffect(() => {
         if(showLoading){
             fetchNewQuestions()
-            toggleLoadingPage(false)
         }
     })
 
@@ -127,6 +126,7 @@ export default function Trivia(){
                     disabled: false
                 })
             }
+            toggleLoadingPage(false)
             setQuestions(newQuestions)
         })
     }
